@@ -28,8 +28,23 @@ The designer gave you this mock-up as a reference. It's fine if the design doesn
 We'd love to hear your thoughts on some of these questions. Please don't spend more than a minute or two on each question.
 
 - What are some edge cases you would take care of before shipping this to production?
+  - Proper logging [API level and database level as well]
+  - Backup for failures, how to handle recoveries (especially db)
+  - API health check to monitor service is up and running
+  - Tests (e2e[FE], integration, unit)
+  - Run load test with large amount of data
+  - Check the query execution time, [postgress with 'explain' keyword]
+  - containerization and orchestration of the application [smooth deployments]
+  - Since API is open , whitelist the IP
 - How would you scale this to handle high amounts of traffic?
+  - Use im-memory db like redis, since this data does not update more frequently.(implement cache invalidation as well)
+  - Use API gateway
+    - Rate Limiting: Implement rate limiting to prevent abuse and ensure fair usage of API.
+    - Request Throttling: Throttle requests to manage spikes in traffic.
+  - Use load balancer for scale the API
 - What's important for you to work well in a fully remote team?
+  - Communication is very important since team is distributed across multiple regions/ timezones
+  - Regular check ins to sync with team members + managements regrading the task process, deliverables, company strategies/goals
 
 ## Deliverables
 
@@ -45,6 +60,15 @@ The app is designed to work out of the box.
 yarn install
 yarn dev
 ```
+
+### How to test the app
+
+1.  yarn install
+2.  open a terminal and run yarn docker:up (for DB)
+3.  open another terminal and run npx ts-node docker/init.ts (seed the data)
+4.  run yarn start
+5.  open browser in http://localhost:3000
+6.  API doc in http://localhost:3001/docs
 
 The app should be available via [http://localhost:3000](http://localhost:3000).
 

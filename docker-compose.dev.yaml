@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:11-alpine
+    restart: on-failure:5
+    container_name: "airport-db"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=airport
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
